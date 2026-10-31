@@ -40,3 +40,18 @@ sudo update-alternatives --install /usr/bin/clang clang  /usr/bin/clang-21 10
 sudo update-alternatives --install /usr/bin/clang++ clang++  /usr/bin/clang++-21 10
 sudo update-alternatives --install /usr/bin/ld.lld ld.lld /usr/bin/ld.lld-21 10
 ```
+
+
+### Build 
+
+Build project with package using command:
+
+```bash
+cmake --workflow --preset debian-trixie-gcc-full
+```
+
+There is still single empty header file, but in future I'm going to add real library with tests.
+
+### TODO
+ - add clang support
+ - add crosscompilation support (at least for i686 and Arm64)
