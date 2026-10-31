@@ -31,15 +31,7 @@ To switch to schroot use command:
 
 ### Compiler setup
 
-Setup required compilers when on schroot. It is expected that in schroot environment the gcc, g++, (TODO: clang, clang++, lld) compilers are specified. Use following commands to enable alternatives (Debian 14 as an example):
-
-```bash
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 10
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 10
-sudo update-alternatives --install /usr/bin/clang clang  /usr/bin/clang-21 10
-sudo update-alternatives --install /usr/bin/clang++ clang++  /usr/bin/clang++-21 10
-sudo update-alternatives --install /usr/bin/ld.lld ld.lld /usr/bin/ld.lld-21 10
-```
+Setup system gcc and g++ packages and it's multiarch versions for crosscompilation, `i686-linux-gnu-g++-14` for example. By default gcc installs with package <native>-linux-gnu-g++ package.
 
 
 ### Build 
@@ -47,11 +39,12 @@ sudo update-alternatives --install /usr/bin/ld.lld ld.lld /usr/bin/ld.lld-21 10
 Build project with package using command:
 
 ```bash
-cmake --workflow --preset debian-trixie-gcc-full
+cmake --workflow --preset debian-trixie-x86_64-full
 ```
 
 There is still single empty header file, but in future I'm going to add real library with tests.
 
 ### TODO
- - add clang support
- - add crosscompilation support (at least for i686 and Arm64)
+ - more arch support (at least for i686 and Arm64)
+ - better presets separated by arch and OS
+ - more complex examples

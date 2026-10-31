@@ -6,137 +6,152 @@
             "hidden": true,
             "generator": "Ninja Multi-Config",
             "binaryDir": "${sourceDir}/build/${presetName}",
-            "toolchainFile": "${sourceDir}/cmake/toolchains/schroot-toolchain.cmake"
-        },
-        {
-            "name": "compiler-gcc",
-            "hidden": true,
+            "toolchainFile": "${sourceDir}/cmake/toolchains/schroot-toolchain.cmake",
             "cacheVariables": {
-                "SCHROOT_COMPILER_C": "gcc",
-                "SCHROOT_COMPILER_CXX": "g++"
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
             }
         },
         {
-            "name": "compiler-clang",
+            "name": "arch-i686",
             "hidden": true,
             "cacheVariables": {
-                "SCHROOT_COMPILER_C": "clang",
-                "SCHROOT_COMPILER_CXX": "clang++"
+                "SCHROOT_TARGET_PROCESSOR": "i686"
+            }
+        },
+        {
+            "name": "arch-x86_64",
+            "hidden": true,
+            "cacheVariables": {
+                "SCHROOT_TARGET_PROCESSOR": "x86_64"
+            }
+        },
+        {
+            "name": "arch-aarch64",
+            "hidden": true,
+            "cacheVariables": {
+                "SCHROOT_TARGET_PROCESSOR": "aarch64"
             }
         },
         {
             "name": "debian-trixie",
             "hidden": true,
-            "environment": {
-                "SCHROOT_SYSROOT": "/srv/chroot/debian-trixie"
+            "cacheVariables": {
+                "SCHROOT_GCC_VERSION": "14",
+                "SCHROOT_ROOT": "/srv/chroot/debian-trixie"
             }
         },
         {
             "name": "debian-forky",
             "hidden": true,
-            "environment": {
-                "SCHROOT_SYSROOT": "/srv/chroot/debian-forky"
+            "cacheVariables": {
+                "SCHROOT_TARGET_PROCESSOR": "x86_64",
+                "SCHROOT_GCC_VERSION": "16",
+                "SCHROOT_ROOT": "/srv/chroot/debian-forky"
             }
         },
         {
             "name": "ubuntu-noble",
             "hidden": true,
-            "environment": {
-                "SCHROOT_SYSROOT": "/srv/chroot/ubuntu-noble"
+            "cacheVariables": {
+                "SCHROOT_TARGET_PROCESSOR": "x86_64",
+                "SCHROOT_GCC_VERSION": "14",
+                "SCHROOT_ROOT": "/srv/chroot/ubuntu-noble"
             }
         },
         {
             "name": "ubuntu-plucky",
             "hidden": true,
-            "environment": {
-                "SCHROOT_SYSROOT": "/srv/chroot/ubuntu-plucky"
+            "cacheVariables": {
+                "SCHROOT_TARGET_PROCESSOR": "x86_64",
+                "SCHROOT_GCC_VERSION": "15",
+                "SCHROOT_ROOT": "/srv/chroot/ubuntu-plucky"
             }
         },
         {
-            "name": "debian-trixie-gcc-config",
-            "displayName": "Configure Debian 13 Trixie [GCC]",
+            "name": "debian-trixie-x86_64-config",
+            "displayName": "Configure Debian 13 Trixie x86_64",
             "inherits": [
                 "schroot-base",
-                "compiler-gcc",
+                "arch-x86_64",
                 "debian-trixie"
             ]
         },
         {
-            "name": "debian-forky-gcc-config",
-            "displayName": "Configure Debian 14 Forky [GCC]",
+            "name": "debian-forky-x86_64-config",
+            "displayName": "Configure Debian 14 Forky x86_64",
             "inherits": [
                 "schroot-base",
-                "compiler-gcc",
+                "arch-x86_64",
                 "debian-forky"
             ]
         },
         {
-            "name": "ubuntu-noble-gcc-config",
-            "displayName": "Configure Ubuntu 24 Noble [GCC]",
+            "name": "ubuntu-noble-x86_64-config",
+            "displayName": "Configure Ubuntu 24 Noble x86_64",
             "inherits": [
                 "schroot-base",
-                "compiler-gcc",
+                "arch-x86_64",
                 "ubuntu-noble"
             ]
         },
         {
-            "name": "ubuntu-plucky-gcc-config",
-            "displayName": "Configure Ubuntu 26 Plucky [GCC]",
+            "name": "ubuntu-plucky-x86_64-config",
+            "displayName": "Configure Ubuntu 26 Plucky x86_64",
             "inherits": [
                 "schroot-base",
-                "compiler-gcc",
+                "arch-x86_64",
                 "ubuntu-plucky"
             ]
         }
     ],
     "buildPresets": [
         {
-            "name": "debian-trixie-gcc-build-debug",
-            "configurePreset": "debian-trixie-gcc-config",
+            "name": "debian-trixie-x86_64-build-debug",
+            "configurePreset": "debian-trixie-x86_64-config",
             "configuration": "Debug"
         },
         {
-            "name": "debian-trixie-gcc-build-release",
-            "configurePreset": "debian-trixie-gcc-config",
+            "name": "debian-trixie-x86_64-build-release",
+            "configurePreset": "debian-trixie-x86_64-config",
             "configuration": "Release"
         },
         {
-            "name": "debian-forky-gcc-build-debug",
-            "configurePreset": "debian-forky-gcc-config",
+            "name": "debian-forky-x86_64-build-debug",
+            "configurePreset": "debian-forky-x86_64-config",
             "configuration": "Debug"
         },
         {
-            "name": "debian-forky-gcc-build-release",
-            "configurePreset": "debian-forky-gcc-config",
+            "name": "debian-forky-x86_64-build-release",
+            "configurePreset": "debian-forky-x86_64-config",
             "configuration": "Release"
         },
         {
-            "name": "ubuntu-noble-gcc-build-debug",
-            "configurePreset": "ubuntu-noble-gcc-config",
+            "name": "ubuntu-noble-x86_64-build-debug",
+            "configurePreset": "ubuntu-noble-x86_64-config",
             "configuration": "Debug"
         },
         {
-            "name": "ubuntu-noble-gcc-build-release",
-            "configurePreset": "ubuntu-noble-gcc-config",
+            "name": "ubuntu-noble-x86_64-build-release",
+            "configurePreset": "ubuntu-noble-x86_64-config",
             "configuration": "Release"
         },
         {
-            "name": "ubuntu-plucky-gcc-build-debug",
-            "configurePreset": "ubuntu-plucky-gcc-config",
+            "name": "ubuntu-plucky-x86_64-build-debug",
+            "configurePreset": "ubuntu-plucky-x86_64-config",
             "configuration": "Debug"
         },
         {
-            "name": "ubuntu-plucky-gcc-build-release",
-            "configurePreset": "ubuntu-plucky-gcc-config",
+            "name": "ubuntu-plucky-x86_64-build-release",
+            "configurePreset": "ubuntu-plucky-x86_64-config",
             "configuration": "Release"
         }
     ],
     "packagePresets": [
         {
-            "name": "debian-trixie-gcc-pack-deb",
-            "displayName": "Package Debian 13 Trixie [GCC] (Release)",
-            "description": "Generate .deb package for Debian 13 Trixie [GCC] (Release) using CPack",
-            "configurePreset": "debian-trixie-gcc-config",
+            "name": "debian-trixie-x86_64-pack-deb",
+            "displayName": "Package Debian 13 Trixie (x86_64 Release)",
+            "description": "Generate .deb package for Debian 13 Trixie (x86_64 Release) using CPack",
+            "configurePreset": "debian-trixie-x86_64-config",
             "generators": [
                 "DEB"
             ],
@@ -145,10 +160,10 @@
             ]
         },
         {
-            "name": "debian-forky-gcc-pack-deb",
-            "displayName": "Package Debian 14 Forky [GCC] (Release)",
-            "description": "Generate .deb package for Debian 14 Forky [GCC] (Release) using CPack",
-            "configurePreset": "debian-forky-gcc-config",
+            "name": "debian-forky-x86_64-pack-deb",
+            "displayName": "Package Debian 14 Forky (x86_64 Release)",
+            "description": "Generate .deb package for Debian 14 Forky (Release) using CPack",
+            "configurePreset": "debian-forky-x86_64-config",
             "generators": [
                 "DEB"
             ],
@@ -157,10 +172,10 @@
             ]
         },
         {
-            "name": "ubuntu-noble-gcc-pack-deb",
-            "displayName": "Package Ubuntu 24 Noble [GCC] (Release)",
-            "description": "Generate .deb package for Ubuntu 24 Noble [GCC] (Release) using CPack",
-            "configurePreset": "ubuntu-noble-gcc-config",
+            "name": "ubuntu-noble-x86_64-pack-deb",
+            "displayName": "Package Ubuntu 24 Noble (x86_64 Release)",
+            "description": "Generate .deb package for Ubuntu 24 Noble (Release) using CPack",
+            "configurePreset": "ubuntu-noble-x86_64-config",
             "generators": [
                 "DEB"
             ],
@@ -169,10 +184,10 @@
             ]
         },
         {
-            "name": "ubuntu-plucky-gcc-pack-deb",
-            "displayName": "Package Ubuntu 26 Plucky [GCC] (Release)",
-            "description": "Generate .deb package for Ubuntu 26 Plucky [GCC] (Release) using CPack",
-            "configurePreset": "ubuntu-plucky-gcc-config",
+            "name": "ubuntu-plucky-x86_64-pack-deb",
+            "displayName": "Package Ubuntu 26 Plucky (x86_64 Release)",
+            "description": "Generate .deb package for Ubuntu 26 Plucky (Release) using CPack",
+            "configurePreset": "ubuntu-plucky-x86_64-config",
             "generators": [
                 "DEB"
             ],
@@ -183,78 +198,78 @@
     ],
     "workflowPresets": [
         {
-            "name": "debian-trixie-gcc-full",
-            "displayName": "Configure, Build and Pack (Debian 13)",
+            "name": "debian-trixie-x86_64-full",
+            "displayName": "Configure, Build and Pack (Debian 13 x86_64)",
             "description": "Configure, build Release, and generate DEB package in one command",
             "steps": [
                 {
                     "type": "configure",
-                    "name": "debian-trixie-gcc-config"
+                    "name": "debian-trixie-x86_64-config"
                 },
                 {
                     "type": "build",
-                    "name": "debian-trixie-gcc-build-release"
+                    "name": "debian-trixie-x86_64-build-release"
                 },
                 {
                     "type": "package",
-                    "name": "debian-trixie-gcc-pack-deb"
+                    "name": "debian-trixie-x86_64-pack-deb"
                 }
             ]
         },
         {
-            "name": "debian-forky-gcc-full",
-            "displayName": "Configure, Build and Pack (Debian 14)",
+            "name": "debian-forky-x86_64-full",
+            "displayName": "Configure, Build and Pack (Debian 14 x86_64)",
             "description": "Configure, build Release, and generate DEB package in one command",
             "steps": [
                 {
                     "type": "configure",
-                    "name": "debian-forky-gcc-config"
+                    "name": "debian-forky-x86_64-config"
                 },
                 {
                     "type": "build",
-                    "name": "debian-forky-gcc-build-release"
+                    "name": "debian-forky-x86_64-build-release"
                 },
                 {
                     "type": "package",
-                    "name": "debian-forky-gcc-pack-deb"
+                    "name": "debian-forky-x86_64-pack-deb"
                 }
             ]
         },
         {
-            "name": "ubuntu-noble-gcc-full",
-            "displayName": "Configure, Build and Pack (Ubuntu 24)",
+            "name": "ubuntu-noble-x86_64-full",
+            "displayName": "Configure, Build and Pack (Ubuntu 24 x86_64)",
             "description": "Configure, build Release, and generate DEB package in one command",
             "steps": [
                 {
                     "type": "configure",
-                    "name": "ubuntu-noble-gcc-config"
+                    "name": "ubuntu-noble-x86_64-config"
                 },
                 {
                     "type": "build",
-                    "name": "ubuntu-noble-gcc-build-release"
+                    "name": "ubuntu-noble-x86_64-build-release"
                 },
                 {
                     "type": "package",
-                    "name": "ubuntu-noble-gcc-pack-deb"
+                    "name": "ubuntu-noble-x86_64-pack-deb"
                 }
             ]
         },
         {
-            "name": "ubuntu-plucky-gcc-full",
-            "displayName": "Configure, Build and Pack (Ubuntu 26)",
+            "name": "ubuntu-plucky-x86_64-full",
+            "displayName": "Configure, Build and Pack (Ubuntu 26 x86_64)",
             "description": "Configure, build Release, and generate DEB package in one command",
             "steps": [
                 {
                     "type": "configure",
-                    "name": "ubuntu-plucky-gcc-config"
+                    "name": "ubuntu-plucky-x86_64-config"
                 },
                 {
                     "type": "build",
-                    "name": "ubuntu-plucky-gcc-build-release"
+                    "name": "ubuntu-plucky-x86_64-build-release"
                 },
                 {
                     "type": "package",
-                    "name": "ubuntu-plucky-gcc-pack-deb"
+                    "name": "ubuntu-plucky-x86_64-pack-deb"
                 }
             ]
         }
