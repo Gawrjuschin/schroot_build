@@ -1,0 +1,10 @@
+# An example of schroot config file.
+[debian-trixie]                     # Change to appropriate
+description=Trixie dev environment  # Change to appropriate
+type=directory
+directory=/srv/chroot/debian-trixie # Change to yours
+users=user                          # Change to your user name
+groups=sudo
+root-groups=root
+personality=linux
+preserve-environment=true

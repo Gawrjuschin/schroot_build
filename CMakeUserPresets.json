@@ -1,0 +1,262 @@
+{
+    "version": 6,
+    "configurePresets": [
+        {
+            "name": "schroot-base",
+            "hidden": true,
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "toolchainFile": "${sourceDir}/cmake/toolchains/schroot-toolchain.cmake"
+        },
+        {
+            "name": "compiler-gcc",
+            "hidden": true,
+            "cacheVariables": {
+                "SCHROOT_COMPILER_C": "gcc",
+                "SCHROOT_COMPILER_CXX": "g++"
+            }
+        },
+        {
+            "name": "compiler-clang",
+            "hidden": true,
+            "cacheVariables": {
+                "SCHROOT_COMPILER_C": "clang",
+                "SCHROOT_COMPILER_CXX": "clang++"
+            }
+        },
+        {
+            "name": "debian-trixie",
+            "hidden": true,
+            "environment": {
+                "SCHROOT_SYSROOT": "/srv/chroot/debian-trixie"
+            }
+        },
+        {
+            "name": "debian-forky",
+            "hidden": true,
+            "environment": {
+                "SCHROOT_SYSROOT": "/srv/chroot/debian-forky"
+            }
+        },
+        {
+            "name": "ubuntu-noble",
+            "hidden": true,
+            "environment": {
+                "SCHROOT_SYSROOT": "/srv/chroot/ubuntu-noble"
+            }
+        },
+        {
+            "name": "ubuntu-plucky",
+            "hidden": true,
+            "environment": {
+                "SCHROOT_SYSROOT": "/srv/chroot/ubuntu-plucky"
+            }
+        },
+        {
+            "name": "debian-trixie-gcc-config",
+            "displayName": "Configure Debian 13 Trixie [GCC]",
+            "inherits": [
+                "schroot-base",
+                "compiler-gcc",
+                "debian-trixie"
+            ]
+        },
+        {
+            "name": "debian-forky-gcc-config",
+            "displayName": "Configure Debian 14 Forky [GCC]",
+            "inherits": [
+                "schroot-base",
+                "compiler-gcc",
+                "debian-forky"
+            ]
+        },
+        {
+            "name": "ubuntu-noble-gcc-config",
+            "displayName": "Configure Ubuntu 24 Noble [GCC]",
+            "inherits": [
+                "schroot-base",
+                "compiler-gcc",
+                "ubuntu-noble"
+            ]
+        },
+        {
+            "name": "ubuntu-plucky-gcc-config",
+            "displayName": "Configure Ubuntu 26 Plucky [GCC]",
+            "inherits": [
+                "schroot-base",
+                "compiler-gcc",
+                "ubuntu-plucky"
+            ]
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "debian-trixie-gcc-build-debug",
+            "configurePreset": "debian-trixie-gcc-config",
+            "configuration": "Debug"
+        },
+        {
+            "name": "debian-trixie-gcc-build-release",
+            "configurePreset": "debian-trixie-gcc-config",
+            "configuration": "Release"
+        },
+        {
+            "name": "debian-forky-gcc-build-debug",
+            "configurePreset": "debian-forky-gcc-config",
+            "configuration": "Debug"
+        },
+        {
+            "name": "debian-forky-gcc-build-release",
+            "configurePreset": "debian-forky-gcc-config",
+            "configuration": "Release"
+        },
+        {
+            "name": "ubuntu-noble-gcc-build-debug",
+            "configurePreset": "ubuntu-noble-gcc-config",
+            "configuration": "Debug"
+        },
+        {
+            "name": "ubuntu-noble-gcc-build-release",
+            "configurePreset": "ubuntu-noble-gcc-config",
+            "configuration": "Release"
+        },
+        {
+            "name": "ubuntu-plucky-gcc-build-debug",
+            "configurePreset": "ubuntu-plucky-gcc-config",
+            "configuration": "Debug"
+        },
+        {
+            "name": "ubuntu-plucky-gcc-build-release",
+            "configurePreset": "ubuntu-plucky-gcc-config",
+            "configuration": "Release"
+        }
+    ],
+    "packagePresets": [
+        {
+            "name": "debian-trixie-gcc-pack-deb",
+            "displayName": "Package Debian 13 Trixie [GCC] (Release)",
+            "description": "Generate .deb package for Debian 13 Trixie [GCC] (Release) using CPack",
+            "configurePreset": "debian-trixie-gcc-config",
+            "generators": [
+                "DEB"
+            ],
+            "configurations": [
+                "Release"
+            ]
+        },
+        {
+            "name": "debian-forky-gcc-pack-deb",
+            "displayName": "Package Debian 14 Forky [GCC] (Release)",
+            "description": "Generate .deb package for Debian 14 Forky [GCC] (Release) using CPack",
+            "configurePreset": "debian-forky-gcc-config",
+            "generators": [
+                "DEB"
+            ],
+            "configurations": [
+                "Release"
+            ]
+        },
+        {
+            "name": "ubuntu-noble-gcc-pack-deb",
+            "displayName": "Package Ubuntu 24 Noble [GCC] (Release)",
+            "description": "Generate .deb package for Ubuntu 24 Noble [GCC] (Release) using CPack",
+            "configurePreset": "ubuntu-noble-gcc-config",
+            "generators": [
+                "DEB"
+            ],
+            "configurations": [
+                "Release"
+            ]
+        },
+        {
+            "name": "ubuntu-plucky-gcc-pack-deb",
+            "displayName": "Package Ubuntu 26 Plucky [GCC] (Release)",
+            "description": "Generate .deb package for Ubuntu 26 Plucky [GCC] (Release) using CPack",
+            "configurePreset": "ubuntu-plucky-gcc-config",
+            "generators": [
+                "DEB"
+            ],
+            "configurations": [
+                "Release"
+            ]
+        }
+    ],
+    "workflowPresets": [
+        {
+            "name": "debian-trixie-gcc-full",
+            "displayName": "Configure, Build and Pack (Debian 13)",
+            "description": "Configure, build Release, and generate DEB package in one command",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "debian-trixie-gcc-config"
+                },
+                {
+                    "type": "build",
+                    "name": "debian-trixie-gcc-build-release"
+                },
+                {
+                    "type": "package",
+                    "name": "debian-trixie-gcc-pack-deb"
+                }
+            ]
+        },
+        {
+            "name": "debian-forky-gcc-full",
+            "displayName": "Configure, Build and Pack (Debian 14)",
+            "description": "Configure, build Release, and generate DEB package in one command",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "debian-forky-gcc-config"
+                },
+                {
+                    "type": "build",
+                    "name": "debian-forky-gcc-build-release"
+                },
+                {
+                    "type": "package",
+                    "name": "debian-forky-gcc-pack-deb"
+                }
+            ]
+        },
+        {
+            "name": "ubuntu-noble-gcc-full",
+            "displayName": "Configure, Build and Pack (Ubuntu 24)",
+            "description": "Configure, build Release, and generate DEB package in one command",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "ubuntu-noble-gcc-config"
+                },
+                {
+                    "type": "build",
+                    "name": "ubuntu-noble-gcc-build-release"
+                },
+                {
+                    "type": "package",
+                    "name": "ubuntu-noble-gcc-pack-deb"
+                }
+            ]
+        },
+        {
+            "name": "ubuntu-plucky-gcc-full",
+            "displayName": "Configure, Build and Pack (Ubuntu 26)",
+            "description": "Configure, build Release, and generate DEB package in one command",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "ubuntu-plucky-gcc-config"
+                },
+                {
+                    "type": "build",
+                    "name": "ubuntu-plucky-gcc-build-release"
+                },
+                {
+                    "type": "package",
+                    "name": "ubuntu-plucky-gcc-pack-deb"
+                }
+            ]
+        }
+    ]
+}
