@@ -41,7 +41,6 @@ install(
 #
 # Packaging
 #
-set(CPACK_GENERATOR "DEB")
 set(CPACK_PACKAGE_CONTACT "Dmitriy Gavryushin <nihsuyrvag@gmail.com>")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
     "An Cmake based C++ project build using schroot")

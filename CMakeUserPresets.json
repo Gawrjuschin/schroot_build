@@ -1,0 +1,87 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "schroot-base",
+      "hidden": true,
+      "generator": "Ninja Multi-Config",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/schroot-toolchain.cmake",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "arch-x86_64",
+      "hidden": true,
+      "cacheVariables": {
+        "SCHROOT_TARGET_PROCESSOR": "x86_64"
+      }
+    },
+    {
+      "name": "debian-trixie",
+      "hidden": true,
+      "cacheVariables": {
+        "SCHROOT_GCC_VERSION": "14",
+        "SCHROOT_ROOT": "/srv/chroot/debian-trixie"
+      }
+    },
+    {
+      "name": "debian-trixie-x86_64-config",
+      "displayName": "Configure Debian 13 Trixie x86_64",
+      "inherits": [
+        "schroot-base",
+        "arch-x86_64",
+        "debian-trixie"
+      ]
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "debian-trixie-x86_64-build-release",
+      "configurePreset": "debian-trixie-x86_64-config",
+      "configuration": "Release"
+    },
+    {
+      "name": "debian-trixie-x86_64-build-debug",
+      "configurePreset": "debian-trixie-x86_64-config",
+      "configuration": "Debug"
+    }
+  ],
+  "packagePresets": [
+    {
+      "name": "debian-trixie-x86_64-pack",
+      "displayName": "Package Debian 13 Trixie x86_64",
+      "description": "Generate packages for Debian 13 Trixie x86_64 using CPack",
+      "configurePreset": "debian-trixie-x86_64-config",
+      "generators": [
+        "DEB",
+        "TGZ"
+      ],
+      "configurations": [
+        "Release"
+      ]
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "debian-trixie-x86_64-full",
+      "displayName": "Configure, Build and Pack (Debian 13 Trixie x86_64)",
+      "description": "Configure, build Release, and generate packages (Debian 13 Trixie x86_64) in one command",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "debian-trixie-x86_64-config"
+        },
+        {
+          "type": "build",
+          "name": "debian-trixie-x86_64-build-release"
+        },
+        {
+          "type": "package",
+          "name": "debian-trixie-x86_64-pack"
+        }
+      ]
+    }
+  ]
+}

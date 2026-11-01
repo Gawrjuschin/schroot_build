@@ -7,25 +7,37 @@ SYSTEMS = {
         "display": "Debian 13 Trixie",
         "gcc": "14",
         "root": "/srv/chroot/debian-trixie",
-        "packs": ["DEB"],
+        "packs": [
+            "DEB",
+            "TGZ",
+        ],
     },
     "debian-forky": {
         "display": "Debian 14 Forky",
         "gcc": "16",
         "root": "/srv/chroot/debian-forky",
-        "packs": ["DEB"],
+        "packs": [
+            "DEB",
+            "TGZ",
+        ],
     },
     "ubuntu-noble": {
         "display": "Ubuntu 24 Noble",
         "gcc": "14",
         "root": "/srv/chroot/ubuntu-noble",
-        "packs": ["DEB"],
+        "packs": [
+            "DEB",
+            "TGZ",
+        ],
     },
     "ubuntu-plucky": {
         "display": "Ubuntu 26 Plucky",
         "gcc": "15",
         "root": "/srv/chroot/ubuntu-plucky",
-        "packs": ["DEB"],
+        "packs": [
+            "DEB",
+            "TGZ",
+        ],
     },
 }
 
