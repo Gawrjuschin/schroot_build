@@ -53,4 +53,7 @@ cmake --workflow --preset debian-trixie-x86_64-full
 There is still single empty header file, but in future I'm going to add real library with tests.
 
 ### TODO
+ - native arch build support
+ - mingw64 support (add triplets parameter and debootstrap for mingw64 env)
  - more complex examples
+ 
